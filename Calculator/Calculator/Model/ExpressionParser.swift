@@ -9,9 +9,8 @@ enum ExpressionParser {
         var formula: Formula = Formula()
         let separatedInputOperands: [String] = componentsByOperators(from: input)
         
-        let convertedToDoubleOperands: [Double] = separatedInputOperands.map {
-            (operand: String) -> Double in
-            return Double(operand) ?? 99.999
+        let convertedToDoubleOperands: [Double] = separatedInputOperands.compactMap { value in
+            return Double(value)
         }
         for operand in convertedToDoubleOperands {
             formula.operands.enqueue(element: operand)

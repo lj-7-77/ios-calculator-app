@@ -44,9 +44,6 @@ class ExpressionParserTests: XCTestCase {
         let input: String = "99.9+0.1"
 
         //when
-//        var resultFormula: Formula = ExpressionParser.parse(from: input)
-//        let resultValue: Double = resultFormula.result()
-
         var resultFormula: Formula = ExpressionParser.parse(from: input)
         var resultValue: Double?
         do {
