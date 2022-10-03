@@ -6,6 +6,7 @@ import Foundation
 
 enum OccuredError: Error {
     case emptyOperator
+    case unkowned
 }
 
 

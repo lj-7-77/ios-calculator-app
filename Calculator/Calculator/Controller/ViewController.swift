@@ -6,7 +6,7 @@ import UIKit
 
 class ViewController: UIViewController {
     var inputNumberArray: [String] = []
-    var displayResultValue: String = ""
+    var calculatedStringValue: String = ""
     
     @IBOutlet weak var signLabel: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
@@ -39,7 +39,39 @@ class ViewController: UIViewController {
     }
     
     @IBAction func touchOperator(_ sender: UIButton) {
-
+        switch sender.currentTitle {
+        case "AC":
+            inputNumberArray = []
+            numberLabel.text = inputNumberArray.joined() //중복
+        case "CE":
+            inputNumberArray.removeLast()
+            numberLabel.text = inputNumberArray.joined() //중복
+        case "⁺⁄₋":
+            if signLabel.text != "+" {
+               signLabel.text = "+"
+            } else {
+                signLabel.text = "−"
+            }
+        case "+","−","×","÷":
+            inputNumberArray.append(sender.currentTitle ?? "")
+            signLabel.text = sender.currentTitle
+            numberLabel.text = inputNumberArray.joined()  //중복
+        case "=":
+            if let input = numberLabel.text {
+                var convertedFormula: Formula = ExpressionParser.parse(from: input)
+                do {
+                    let calculatedDoubleValue: Double = try convertedFormula.result() ?? 0
+                    calculatedStringValue = String(calculatedDoubleValue) //언래핑 후 string변환 가능
+                } catch OccuredError.emptyOperator {
+                    print("error")
+                } catch {
+                }
+                numberLabel.text = calculatedStringValue
+            }
+            inputNumberArray = []
+        default:
+            break
+        }
     }
     
     override func viewDidLoad() {
