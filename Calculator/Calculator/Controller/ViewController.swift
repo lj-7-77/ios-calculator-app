@@ -23,11 +23,11 @@ class ViewController: UIViewController {
     @IBAction func touchOperator(_ sender: UIButton) {
         switch sender.currentTitle {
         case "AC":
-            totalFormula = []
             signLabel.text = ""
             numberLabel.text = ""
             currentInputNumber = ""
-            horizontalStackView.removeArrangedSubview(view)
+            totalFormula = []
+            removeAllStackView()
         case "CE":
             if totalFormula.count > 1 {
                 removeLastStackView()
@@ -58,6 +58,12 @@ class ViewController: UIViewController {
         }
     }
     
+    func removeAllStackView() {
+        horizontalStackView.subviews.forEach { value in
+            value.isHidden = true
+        }
+    }
+    
     func removeLastStackView() {
         guard let lastStackView: UIView = horizontalStackView.arrangedSubviews.last else {
             return
@@ -78,13 +84,15 @@ class ViewController: UIViewController {
         let verticalStackSignLabel: UILabel = UILabel()
         let verticalStackNumberLabel: UILabel = UILabel()
         
-        verticalStackSignLabel.text = signLabel.text ?? ""
+        guard let signLabelText: String = signLabel.text else { return }
+        verticalStackSignLabel.text = signLabelText
         verticalStackNumberLabel.text = currentInputNumber
         verticalStackSignLabel.textColor = .white
         verticalStackNumberLabel.textColor = .white
         
         newStackView.addArrangedSubview(verticalStackSignLabel)
         newStackView.addArrangedSubview(verticalStackNumberLabel)
+
         horizontalStackView.addArrangedSubview(newStackView)
     }
     
