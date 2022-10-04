@@ -37,15 +37,13 @@ class ViewController: UIViewController {
                 signLabel.text = "−"
             }
         case "+","−","×","÷":
-            totalFormula.append(signLabel.text ?? "")
-            totalFormula.append(currentInputNumber)
-            print("totalFormula: \(totalFormula)")
-            
             numberLabel.text = ""
-            addStackView()
-            
+            if currentInputNumber != "" {
+                addToTotalFormula()
+                addStackView()
+                currentInputNumber = ""
+            }
             signLabel.text = sender.currentTitle
-            currentInputNumber = ""
         case "=":
             signLabel.text = ""
             numberLabel.text = ""
@@ -56,6 +54,11 @@ class ViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    func addToTotalFormula() {
+        totalFormula.append(signLabel.text ?? "")
+        totalFormula.append(currentInputNumber)
     }
     
     func addStackView() {
