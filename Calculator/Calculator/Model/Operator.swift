@@ -27,22 +27,18 @@ enum Operator: Character, CaseIterable, CalculateItem {
     }
     
     func add(lhs: Double, rhs: Double) -> Double {
-        let addResult: Double = lhs + rhs
-        return addResult
+        return lhs + rhs
     }
     
     func subtract(lhs: Double, rhs: Double) -> Double {
-        let subtractResult: Double = lhs - rhs
-        return subtractResult
+        return lhs - rhs
     }
     
     func multiply(lhs: Double, rhs: Double) -> Double {
-        let multiplyResult: Double = lhs * rhs
-        return multiplyResult
+        return lhs * rhs
     }
     
     func divide(lhs: Double, rhs: Double) -> Double {
-        let divideResult: Double = lhs / rhs
-        return divideResult
+        return lhs / rhs
     }
 }

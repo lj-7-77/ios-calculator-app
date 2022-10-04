@@ -74,7 +74,9 @@ class ViewController: UIViewController {
     }
     
     func addToTotalFormula() {
-        totalFormula.append(signLabel.text ?? "")
+        if let signLabelText = signLabel.text, signLabel.text != "" {
+            totalFormula.append(signLabelText)
+        }
         totalFormula.append(currentInputNumber)
         print("totalFormula: \(totalFormula)")
     }
@@ -84,7 +86,9 @@ class ViewController: UIViewController {
         let verticalStackSignLabel: UILabel = UILabel()
         let verticalStackNumberLabel: UILabel = UILabel()
         
-        guard let signLabelText: String = signLabel.text else { return }
+        guard let signLabelText: String = signLabel.text else {
+            return
+        }
         verticalStackSignLabel.text = signLabelText
         verticalStackNumberLabel.text = currentInputNumber
         verticalStackSignLabel.textColor = .white
