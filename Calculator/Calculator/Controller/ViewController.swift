@@ -5,47 +5,31 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var inputNumberArray: [String] = []
-    var calculatedStringValue: String = ""
+    var totalFormula: [String] = []
+    var currentInputNumber: String = ""
+    var calculatedResult: String = ""
     
     @IBOutlet weak var signLabel: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
     
+    @IBOutlet weak var horizontalStackView: UIStackView!
+    @IBOutlet weak var verticalStackView: UIStackView!
+    
     @IBAction func touchNumber(_ sender: UIButton) {
-        inputNumberArray.append(sender.currentTitle ?? "")
-        
-        if inputNumberArray.count == 1 && inputNumberArray[0] == "."  {
-            inputNumberArray.insert("0", at: 0)
-        } else if inputNumberArray.count == 2 {
-            guard inputNumberArray[1] != "." else {
-                numberLabel.text = inputNumberArray.joined()
-                return
-            }
-            switch inputNumberArray[0] {
-            case "0":
-                inputNumberArray.removeFirst()
-            case ".":
-                inputNumberArray.insert("0", at: 0)
-            default:
-                break
-            }
-        } else if inputNumberArray.count > 2 {
-            if inputNumberArray[inputNumberArray.count-1] == "."
-                && inputNumberArray.contains(".") {
-                inputNumberArray.removeLast()
-            }
-        }
-        numberLabel.text = inputNumberArray.joined()
+        currentInputNumber += sender.currentTitle ?? ""
+        numberLabel.text = currentInputNumber
     }
     
     @IBAction func touchOperator(_ sender: UIButton) {
         switch sender.currentTitle {
         case "AC":
-            inputNumberArray = []
-            numberLabel.text = inputNumberArray.joined() //중복
+            totalFormula = []
+            signLabel.text = ""
+            numberLabel.text = ""
+            currentInputNumber = ""
+            horizontalStackView.removeArrangedSubview(view)
         case "CE":
-            inputNumberArray.removeLast()
-            numberLabel.text = inputNumberArray.joined() //중복
+            totalFormula = []
         case "⁺⁄₋":
             if signLabel.text != "+" {
                signLabel.text = "+"
@@ -53,29 +37,43 @@ class ViewController: UIViewController {
                 signLabel.text = "−"
             }
         case "+","−","×","÷":
-            inputNumberArray.append(sender.currentTitle ?? "")
+            totalFormula.append(signLabel.text ?? "")
+            totalFormula.append(currentInputNumber)
+            print("totalFormula: \(totalFormula)")
+            
+            numberLabel.text = ""
+            addStackView()
+            
             signLabel.text = sender.currentTitle
-            numberLabel.text = inputNumberArray.joined()  //중복
+            currentInputNumber = ""
         case "=":
-            if let input = numberLabel.text {
-                var convertedFormula: Formula = ExpressionParser.parse(from: input)
-                do {
-                    let calculatedDoubleValue: Double = try convertedFormula.result() ?? 0
-                    calculatedStringValue = String(calculatedDoubleValue) //언래핑 후 string변환 가능
-                } catch OccuredError.emptyOperator {
-                    print("error")
-                } catch {
-                }
-                numberLabel.text = calculatedStringValue
-            }
-            inputNumberArray = []
+            signLabel.text = ""
+            numberLabel.text = ""
+            currentInputNumber = ""
+            let input: String = totalFormula.joined()
+            print(input)
+            totalFormula = []
         default:
             break
         }
+    }
+    
+    func addStackView() {
+        let newStackView: UIStackView = UIStackView()
+        let verticalStackSignLabel: UILabel = UILabel()
+        let verticalStackNumberLabel: UILabel = UILabel()
+        
+        verticalStackSignLabel.text = signLabel.text ?? ""
+        verticalStackNumberLabel.text = currentInputNumber
+        verticalStackSignLabel.textColor = .white
+        verticalStackNumberLabel.textColor = .white
+        
+        newStackView.addArrangedSubview(verticalStackSignLabel)
+        newStackView.addArrangedSubview(verticalStackNumberLabel)
+        horizontalStackView.addArrangedSubview(newStackView)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 }
-
