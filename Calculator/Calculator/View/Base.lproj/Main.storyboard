@@ -48,7 +48,7 @@
                                     <constraint firstItem="XRe-QE-UJf" firstAttribute="height" secondItem="gA2-7M-FxF" secondAttribute="height" priority="1" id="PfX-qG-S4s"/>
                                     <constraint firstItem="XRe-QE-UJf" firstAttribute="leading" secondItem="K6N-nC-kaV" secondAttribute="leading" id="WTo-5t-Xde"/>
                                     <constraint firstItem="XRe-QE-UJf" firstAttribute="trailing" secondItem="K6N-nC-kaV" secondAttribute="trailing" id="bYc-Yd-kw9"/>
-                                    <constraint firstItem="XRe-QE-UJf" firstAttribute="bottom" secondItem="K6N-nC-kaV" secondAttribute="bottom" id="dlN-3y-jhh"/>
+                                    <constraint firstItem="XRe-QE-UJf" firstAttribute="bottom" secondItem="K6N-nC-kaV" secondAttribute="bottom" constant="50" id="dlN-3y-jhh"/>
                                     <constraint firstItem="XRe-QE-UJf" firstAttribute="top" secondItem="K6N-nC-kaV" secondAttribute="top" id="hlo-zV-yFo"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="K6N-nC-kaV"/>
@@ -348,6 +348,7 @@
                     <connections>
                         <outlet property="horizontalStackView" destination="XRe-QE-UJf" id="GVP-11-Mbm"/>
                         <outlet property="numberLabel" destination="Lwz-OF-XHD" id="XI8-JX-Iar"/>
+                        <outlet property="scrollView" destination="BOT-7g-vxv" id="gf9-cw-bn3"/>
                         <outlet property="signLabel" destination="HPC-iy-qdm" id="VN8-nJ-8jX"/>
                         <outlet property="verticalStackView" destination="2Pu-Ld-ZGi" id="0V2-Uf-q0w"/>
                     </connections>

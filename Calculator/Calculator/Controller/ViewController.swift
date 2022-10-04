@@ -12,14 +12,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var signLabel: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var horizontalStackView: UIStackView!
-    @IBOutlet weak var verticalStackView: UIStackView!
+    @IBOutlet weak var verticalStackView: UIStackView!  //미사용
     
     @IBAction func touchNumber(_ sender: UIButton) {
         currentInputNumber += sender.currentTitle ?? ""
         numberLabel.text = currentInputNumber
     }
-    
+
     @IBAction func touchOperator(_ sender: UIButton) {
         switch sender.currentTitle {
         case "AC":
