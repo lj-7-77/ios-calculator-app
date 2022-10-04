@@ -29,7 +29,9 @@ class ViewController: UIViewController {
             currentInputNumber = ""
             horizontalStackView.removeArrangedSubview(view)
         case "CE":
-            totalFormula = []
+            if totalFormula.count > 1 {
+                removeLastStackView()
+            }
         case "⁺⁄₋":
             if signLabel.text != "+" {
                signLabel.text = "+"
@@ -56,9 +58,19 @@ class ViewController: UIViewController {
         }
     }
     
+    func removeLastStackView() {
+        guard let lastStackView: UIView = horizontalStackView.arrangedSubviews.last else {
+            return
+        }
+        lastStackView.removeFromSuperview()
+        totalFormula.removeLast()
+        totalFormula.removeLast()
+    }
+    
     func addToTotalFormula() {
         totalFormula.append(signLabel.text ?? "")
         totalFormula.append(currentInputNumber)
+        print("totalFormula: \(totalFormula)")
     }
     
     func addStackView() {
