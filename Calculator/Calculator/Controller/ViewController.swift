@@ -34,6 +34,7 @@ class ViewController: UIViewController {
                 removeLastStackView()
             }
         case "⁺⁄₋":
+            //피연산자의 +/-값을 바꾸는 것
             if signLabel.text != "+" {
                signLabel.text = "+"
             } else {
@@ -47,11 +48,18 @@ class ViewController: UIViewController {
                 currentInputNumber = ""
             }
             signLabel.text = sender.currentTitle
+            print("contentSize:\(scrollView.contentSize.height)")
+            print("bounds:\(scrollView.bounds.height)")
+            view.layoutIfNeeded()
+            scrollView.setContentOffset(CGPoint(x: 0.0,
+                                                y: scrollView.contentSize.height - scrollView.bounds.size.height), animated: true)
+            print("scrollView.contentOffset: \(scrollView.contentOffset)")
         case "=":
             signLabel.text = ""
             numberLabel.text = ""
             currentInputNumber = ""
             let input: String = totalFormula.joined()
+            
             print(input)
             totalFormula = []
         default:
